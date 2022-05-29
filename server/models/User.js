@@ -23,7 +23,7 @@ const userSchema = new Schema(
       type: String,
       required: true,
       //ADDING MIN LENGTH
-      mimlength: 4
+      minlength: 4
     },
     // set savedBooks to be an array of data that adheres to the bookSchema
     //ADDING A CHILD SCHEMA
