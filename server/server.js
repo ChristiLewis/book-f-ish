@@ -1,22 +1,51 @@
 //IMPORT
 const express = require('express');
-const path = require('path');
+//APPOLO IMPORT
+const { ApolloServer } = require('apollo-server-express');
+//IMPORT TYPEDEFS AND RESOLVERS
+const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
-const routes = require('./routes');
+
+//BELOW ARE NOT FOUND IN WORKING APOLLO SERVER FILE
+// const path = require('path');
+// const routes = require('./routes');
+
+const PORT = process.env.PORT || 3001;
+//NEW APOLLO SERVER
+const server = new ApolloServer({
+  typeDefs,
+  resolvers
+});
 
 const app = express();
-const PORT = process.env.PORT || 3001;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+//NEW INSTANCE OF AN APOLLO SERVER W GRAPHQL CHEMA
+const startApolloServer = async (typeDefs, resolvers) => {
+  await server.start();
+  //MIDDLEWARE
+  server.applyMiddleware({ app })
+};
+
 
 // if we're in production, serve client/build as static assets
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
 }
 
-app.use(routes);
+//NA FOR NEW MIDDLEWARE?
+// app.use(routes);
 
 db.once('open', () => {
-  app.listen(PORT, () => console.log(`🌍 Now listening on localhost:${PORT}`));
+  app.listen(PORT, () => {
+    console.log(`API server running on port ${PORT}!`);
+    //TESTING GQL API
+    console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
+  });
+
 });
+
+//CALL ASYNC TO START THE SERVER
+startApolloServer(typeDefs, resolvers);
