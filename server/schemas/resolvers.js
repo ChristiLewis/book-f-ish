@@ -5,6 +5,16 @@ const { User, Book } = require('../models');
 
 const resolvers = {
     Query: {
+        me: async (parent, args) => {
+            const userData = await User.findOne({})
+                .select('-__v -password')
+                .populate('books');
+            // .populate('friends');
+
+            return userData;
+        },
+  
+        },
         //ALL
         books: async (parent, { username }) => {
             const params = username ? { username } : {};
@@ -30,6 +40,7 @@ const resolvers = {
         },
     },
 
+
     Mutation: {
         addUser: async (parent, args) => {
             const user = await User.create(args);
@@ -54,6 +65,10 @@ const resolvers = {
             return { token, user };
         }
     }
+
 };
 
 module.exports = resolvers;
+    
+
+
