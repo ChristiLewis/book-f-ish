@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Jumbotron, Container, Col, Form, Button, Card, CardColumns } from 'react-bootstrap';
+// //IMPORT THE USEQUERY HOOK TO QUERY GET_ME
+// import { useQuery } from '@apollo/client';
+// import { QUERY_GET_ME } from '../utils/queries';
 
 import Auth from '../utils/auth';
 import { saveBook, searchGoogleBooks } from '../utils/API';
