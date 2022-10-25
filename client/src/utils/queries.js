@@ -2,7 +2,7 @@ import { gql } from '@apollo/client';
 
 
 export const QUERY_BOOKS = gql`
-  query thoughts($username: String) {
+  query books($username: String) {
     books(username: $username) {
       bookId
       createdAt

@@ -2,13 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { Jumbotron, Container, Col, Form, Button, Card, CardColumns } from 'react-bootstrap';
 // //IMPORT THE USEQUERY HOOK TO QUERY GET_ME
 // import { useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 // import { QUERY_GET_ME } from '../utils/queries';
+import { QUERY_BOOKS } from '../utils/queries';
+import { QUERY_GET_ME } from '../utils/queries';
 
 import Auth from '../utils/auth';
 import { saveBook, searchGoogleBooks } from '../utils/API';
 import { saveBookIds, getSavedBookIds } from '../utils/localStorage';
 
 const SearchBooks = () => {
+  //USEQUERY HOOK TO MAKE QUERY REQUEST
+  const { loading, data } = useQuery(QUERY_BOOKS);
+  //GET THE BOOK OUT OF THE QUERY
+  const books = data?.books || [];
+  console.log(startbeins);
   // create state for holding returned google api data
   const [searchedBooks, setSearchedBooks] = useState([]);
   // create state for holding our search field data
@@ -22,6 +30,12 @@ const SearchBooks = () => {
   useEffect(() => {
     return () => saveBookIds(savedBookIds);
   });
+
+      <main>
+        <div className='flex-row justify-space-between'>
+          <div className='col-12 mb-3'>{/* PRINT BOOK LIST */}</div>
+        </div>
+      </main>
 
   // create method to search for books and set state on form submit
   const handleFormSubmit = async (event) => {

@@ -22,22 +22,22 @@ db.once('open', async () => {
 
 
     //BOOKS
-    let createdBooks = [];
-    for (let i = 0; i < 100; i += 1) {
-        const bookText = faker.lorem.words(Math.round(Math.random() * 20) + 1);
+    // let createdBooks = [];
+    // for (let i = 0; i < 100; i += 1) {
+    //     const description = faker.lorem.words(Math.round(Math.random() * 20) + 1);
 
-        const randomUserIndex = Math.floor(Math.random() * createdUsers.ops.length);
-        const { username, _id: userId } = createdUsers.ops[randomUserIndex];
+    //     const randomUserIndex = Math.floor(Math.random() * createdUsers.ops.length);
+    //     const { username, _id: userId } = createdUsers.ops[randomUserIndex];
 
-        const createdBook = await Book.create({ bookText, username });
+    //     const createdBook = await Book.create({ bookText, username });
 
-        const updatedUser = await User.updateOne(
-            { _id: userId },
-            { $push: { books: createdBook._id } }
-        );
+    //     const updatedUser = await User.updateOne(
+    //         { _id: userId },
+    //         { $push: { books: createdBook._id } }
+    //     );
 
-        createdBooks.push(createdBook);
-    }
+    //     createdBooks.push(createdBook);
+    // }
 
     console.log('all done!');
     process.exit(0);
