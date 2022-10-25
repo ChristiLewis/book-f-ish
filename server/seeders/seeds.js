@@ -5,7 +5,6 @@ const db = require('../config/connection');
 const { Book, User } = require('../models');
 
 db.once('open', async () => {
-    await Book.deleteMany({});
     await User.deleteMany({});
 
     //CREATE USER DATA
